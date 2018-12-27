@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+	<head>  
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script>
+			var m = [
+				{
+					text: 'Животные', 
+					children: [ 
+					{ 
+						text: 'Млекопитающий', 
+						children: 
+						[ 
+						{ 
+							text: 'Коровы', 
+							children: [] 
+						}, 
+						{ 
+							text: 'Ослы', 
+							children: [] 
+						}, 
+						{ 
+							text: 'Собаки', 
+							children: [] 
+						}, 
+						{ 
+							text: 'Тигры', 
+							children: [] 
+						} 
+						] 
+					}, 
+					{ 
+						text: 'Другие', 
+						children: [ 
+						{ 
+							text: 'Змеи', 
+							children: [] 
+						}, 
+						{ 
+							text: 'Птицы', 
+							children: [] 
+						}, 
+						{ 
+							text: 'Ящерицы', 
+							children: [] 
+						} 
+						] 
+					} 
+					] 
+				}, 
+				{ 
+					text: 'Рыбы', 
+					children: [ 
+					{ 
+						text: 'Аквариумные', 
+						children: [ 
+						{ 
+							text: 'Гуппи', 
+							children: [] 
+						}, 
+						{ 
+							text: 'Скалярии', 
+							children: [] 
+						} 
+						] 
+					}, 
+					{ 
+						text: 'Морские', 
+						children: [ 
+						{ 
+							text: 'Морская форель', 
+							children: [] 
+						} 
+						] 
+					} 
+					] 
+				}
+			]; 
+		
+			/*ul = document.createElement("ul")
+				for (var i=0;i<2;i++) {
+					li = document.createElement("li");
+					li.innerHTML = m[i].text;
+					ul.append(li);
+				
+					ull = document.createElement("ul")
+					li.append(ull)
+						for (var j=0;j<2;j++) {
+							lii = document.createElement("li");
+							lii.innerHTML = m[i].childs[j].text;
+							ull.append(lii);
+							
+							ulll = document.createElement("ul");
+							lii.append(ulll);
+								for (var k=0; k<m[i].childs[j].childs.length;k++){
+									liii = document.createElement("li");
+									liii.innerHTML = m[i].childs[j].childs[k];
+									ulll.append(liii);
+								}
+						
+						}
+				}
+			document.body.appendChild(ul)*/
+			function Make(arr) { 
+				var li = document.createElement("li"); 
+				li.innerText = arr.text;
+				if (arr.children.length != 0) { 
+					var ul = document.createElement("ul"); 
+					for (var i = 0; i < arr.children.length; i++){ 
+						ul.append(Make(arr.children[i])); 
+					}
+					li.append(ul); 
+				} 
+				return li; 
+			} 
+			var ul = document.createElement("ul"); 
+			for (var i = 0; i < m.length; i++) {
+				ul.append(Make(m[i])); 
+			}
+			document.body.insertBefore(ul, document.getElementsByTagName("script")[0]); 
+			GetInformation(document.documentElement);
+			function GetInformation(arr) {
+				var information = {node: arr,properties:[]};
+				for (var i in arr){
+					information.properties.push(i + ":" + arr[i]);
+				}
+				console.log(information);
+				for (var i = 0;i<arr.children.length;i++){
+					GetInformation(arr.children[i]);
+				}
+			}
+		</script> 
+	</body>
+</html>
+

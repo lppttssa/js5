@@ -1,0 +1,111 @@
+<!DOCTYPE HTML> 
+<html> 
+	<head> 
+		<meta charset="utf-8"> 
+		<title>Bla</title> 
+	</head> 
+	<body> 
+		<script type="text/javascript" src="js.js"></script> 
+		<script> 
+			var m = [ 
+			{ 
+				text: 'Животные', 
+				children: [ 
+				{ 
+					text: 'Млекопитающий', 
+					children: [ 
+					{ 
+						text: 'Коровы', 
+						children: [] 
+					}, 
+					{ 
+						text: 'Ослы', 
+						children: [] 
+					}, 
+					{ 
+						text: 'Собаки', 
+						children: [] 
+					}, 
+					{ 
+						text: 'Тигры', 
+						children: [] 
+					} 
+					] 
+				}, 
+				{ 
+					text: 'Другие', 
+					children: [ 
+					{ 
+						text: 'Змеи', 
+						children: [] 
+					}, 
+					{ 
+						text: 'Птицы', 
+						children: [] 
+					}, 
+					{ 
+						text: 'Ящерицы', 
+						children: [] 
+					} 
+					] 
+				} 
+				] 
+			}, 
+			{ 
+				text: 'Рыбы', 
+				children: [ 
+					{ 
+						text: 'Аквариумные', 
+						children: [ 
+						{ 
+							text: 'Гуппи', 
+							children: [] 
+						}, 
+						{ 
+							text: 'Скалярии', 
+							children: [] 
+						} 
+						] 
+					}, 
+					{ 
+						text: 'Морские', 
+						children: [ 
+						{ 
+							text: 'Морская форель', 
+							children: [] 
+						} 
+						] 
+					} 
+				] 
+			}]; 
+			function Make(mm) { 
+				var li = $("<li>"); 
+				li.text(mm.text); 
+				if (mm.children.length != 0){ 
+					var ul = $("<ul>"); 
+					for (var i = 0; i < mm.children.length; i++){
+						ul.append(Make(mm.children[i]));
+					}
+					li.append(ul); 
+				} 
+				return li; 
+			} 
+			var ul = $("<ul>"); 
+			for (var i = 0; i < m.length; i++){ 
+				ul.append(Make(m[i]));
+			}
+			$('body').append(ul); 
+			$("li").click(function(e){ 
+				e.stopPropagation(); 
+				$(this).children("ul").fadeToggle(500); 
+			}); 
+			$( "li" ).each(function() { 
+				var inf= $(this).clone().children("ul").remove().end(); 
+				console.log( "Text: " + inf.text() + "\r\nCount li: " + $(this).find("li").length ); 
+			}); 
+		</script> 
+	</body> 
+</html>	
+				
+				
+				
